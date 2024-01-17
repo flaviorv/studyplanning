@@ -2,14 +2,21 @@ package com.frv.studyplanning.model;
 
 public class Student {
 	
-	private String email;
 	private String name;
+	private String email;
 	private String password;
 	
-	public Student(String email, String name, String password) {
-		this.email = email;
+	public Student(String name,String email,  String password) {
 		this.name = name;
+		this.email = email;
 		this.password = password;
+	}
+	
+	public Boolean authenticate(String password) {
+		if(this.password == password) {
+			return true;
+		}
+		return false;
 	}
 
 	public String getEmail() {
