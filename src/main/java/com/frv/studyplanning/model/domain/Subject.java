@@ -1,12 +1,13 @@
 package com.frv.studyplanning.model.domain;
 
-public class Subject extends CurrentDate{
+public class Subject extends StudyTime{
 	
 	private String name;
-	public Subject(String _name) {
-		this.name = _name;
+	public Subject(String name) {
+		this.name = name;
 		super.setStartDay();
 		super.setStartHour();
+		super.countHours();
 	}
 	
 

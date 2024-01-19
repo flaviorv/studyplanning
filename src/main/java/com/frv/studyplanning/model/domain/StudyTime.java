@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class CurrentDate {
+public abstract class StudyTime {
 	
 	private String startDay;
 	private String lastDay;
@@ -18,12 +18,12 @@ public abstract class CurrentDate {
 	   new Timer().scheduleAtFixedRate(new TimerTask() {
 		   @Override
 		   public void run() {
-			   if(!new SimpleDateFormat("HH:mm").format(new Date()).equals(getHours())) {
+			   if(!new SimpleDateFormat("HH:mm:ss").format(new Date()).equals(getHours())) {
 				   setHours();
 				   System.out.println(getHours());
 			   }
 		   }
-	   }, 0, 1000);      
+	   }, 0, 100);      
 	}
 	
 	public String getHours() {
@@ -31,7 +31,7 @@ public abstract class CurrentDate {
 	}
 	
 	public void setHours() {
-		this.hours = new SimpleDateFormat("HH:mm").format(new Date());
+		this.hours = new SimpleDateFormat("HH:mm:ss").format(new Date());
 	}
 
 	public String getStartDay() {
@@ -66,7 +66,7 @@ public abstract class CurrentDate {
 
 	public void setStartHour() {
 		if (this.getStartHour() == null) {
-			this.startHour = new SimpleDateFormat("HH:mm").format(new Date());
+			this.startHour = new SimpleDateFormat("HH:mm:ss").format(new Date());
 		}
 	}
 
