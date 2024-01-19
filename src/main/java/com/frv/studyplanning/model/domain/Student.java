@@ -1,4 +1,4 @@
-package com.frv.studyplanning.model;
+package com.frv.studyplanning.model.domain;
 
 public class Student {
 	
