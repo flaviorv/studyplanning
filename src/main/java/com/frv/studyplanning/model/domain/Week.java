@@ -2,18 +2,25 @@ package com.frv.studyplanning.model.domain;
 
 import java.util.ArrayList;
 
-public class Week {
+public class Week extends StudyTime {
 	
-	private ArrayList<String> goals = new ArrayList<>();
+	private ArrayList<Goal> goals = new ArrayList<>();
 	private Integer points;
 	private String feedback;
 	
-	public ArrayList<String> getAllGoals() {
+	public Week() {
+		
+		super.setLastDay(null);
+		super.setStartDay();
+		super.setStartOfStudyMilleseconds();
+	}
+	
+	public ArrayList<Goal> getAllGoals() {
 		
 		return goals;
 	}
 	
-	public void addGoal(String goal) {
+	public void addGoal(Goal goal) {
 		
 		this.goals.add(goal);
 	}

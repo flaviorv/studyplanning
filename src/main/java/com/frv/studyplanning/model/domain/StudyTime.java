@@ -2,49 +2,32 @@ package com.frv.studyplanning.model.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public abstract class StudyTime {
 	
 	private String startDay;
 	private String lastDay;
-	private String studyHours;
-	private String hours;
+	private Integer studyMinutes;
 	
-	public void countHours() {
-	   
-		new Timer().scheduleAtFixedRate(new TimerTask() {
-		   
-			private Integer count = 0;
-		   
-			@Override
-			public void run() {
-				
-				if(!new SimpleDateFormat("HH:mm:ss").format(new Date()).equals(getHours())) {
-				   
-					setHours();
-					
-					count += 1;
-					if(count < 5) {
-						
-						System.out.println(getHours());
-					}	
-			   }
-		   }
-	   }, 0, 100);      
+	private Long startOfStudyMilliseconds;
+	public Boolean calculateStudyMinutes() {
+		try {
+			
+			Long studyMilliseconds = new Date().getTime() - startOfStudyMilliseconds;
+			Long studySeconds = (studyMilliseconds/1000);
+			Integer studyIntSeconds = studySeconds.intValue();
+			studyMinutes = studyIntSeconds/60;
+			return true;
+		}
+		catch(Exception e) {
+			
+			return false;
+		}
 	}
 	
-	public abstract void countStudyHours();
-	
-	public String getHours() {
+	public void setStartOfStudyMilleseconds() {
 		
-		return this.hours;
-	}
-	
-	public void setHours() {
-		
-		this.hours = new SimpleDateFormat("HH:mm:ss").format(new Date());	
+		startOfStudyMilliseconds = new Date().getTime();
 	}
 
 	public String getStartDay() {
@@ -71,13 +54,8 @@ public abstract class StudyTime {
 	}
 
 
-	public String getStudyHours() {
+	public Integer getStudyMinutes() {
 		
-		return studyHours;
-	}
-
-	public void setStudyHours(String studyHours) {
-		
-		this.studyHours = studyHours;
+		return studyMinutes;
 	}
 }

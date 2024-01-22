@@ -21,10 +21,11 @@ public class SubjectLoader implements ApplicationRunner {
 		Subject s1 = new Subject("Disciplined Agile Delivery");
 		System.out.println("Nome da Matéria: "+s1.getName()+
 				"\nDia de Início: "+s1.getStartDay());
-		s1.countHours();
-		System.out.println("Hour1: " + s1.getHours());
+		s1.setStartOfStudyMilleseconds();
+		s1.calculateStudyMinutes();
+		System.out.println("studyMinutes " + s1.getStudyMinutes());
 		
-		new Timer().schedule(new TimerTask() {
+		new Timer().scheduleAtFixedRate(new TimerTask() {
 		   
 			@Override
 			public void run() {
@@ -32,10 +33,10 @@ public class SubjectLoader implements ApplicationRunner {
 				Subject s2 = new Subject("Refatoração");
 				System.out.println("Nome da Matéria: "+s2.getName()+
 						"\nDia de Início: "+s2.getStartDay());
-				s2.countHours();	
-				System.out.println("Hour2 " + s1.getHours());
+				s1.calculateStudyMinutes();
+				System.out.println("studyMinutes " + s1.getStudyMinutes());
 		   }
-		}, 5000);    
+		}, 60000, 60000);    
 		
 		System.out.println("Finishing SubjectLoader");
 	}	

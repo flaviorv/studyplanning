@@ -10,16 +10,9 @@ public class Course extends StudyTime{
 	public Course(String name) {
 		
 		this.name = name;
-		super.setHours();
 		super.setLastDay(null);
 		super.setStartDay();
-		super.setStudyHours(null);
-	}
-	
-	@Override
-	public void countStudyHours() {
-		// TODO Auto-generated method stub
-		
+		super.setStartOfStudyMilleseconds();
 	}
 	
 	public String getName() {
