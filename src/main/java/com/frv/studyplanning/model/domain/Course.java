@@ -2,14 +2,14 @@ package com.frv.studyplanning.model.domain;
 
 import java.util.ArrayList;
 
-public class Subject extends StudyTime{
+public class Course extends StudyTime{
 	
 	private String name;
-	private ArrayList<Content> contents = new ArrayList<>();
-	public Subject(String name) {
+	private ArrayList<Subject> subjects = new ArrayList<>();
+	
+	public Course(String name) {
 		
 		this.name = name;
-		
 		super.setHours();
 		super.setLastDay(null);
 		super.setStartDay();
@@ -24,7 +24,7 @@ public class Subject extends StudyTime{
 	
 	public String getName() {
 		
-		return this.name;
+		return name;
 	}
 
 	public void setName(String name) {
@@ -32,13 +32,13 @@ public class Subject extends StudyTime{
 		this.name = name;
 	}
 
-	public ArrayList<Content> getAllContents() {
+	public ArrayList<Subject> getSubjects() {
 		
-		return this.contents;
+		return subjects;
 	}
 
-	public void addContent(Content content) {
+	public void addSubjects(Subject subject) {
 		
-		this.contents.add(content);
+		this.subjects.add(subject);
 	}
 }

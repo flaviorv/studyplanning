@@ -10,7 +10,7 @@ public class StudentController {
 	
 	@GetMapping("/")
 	public String inicio() {
+		
 		return "TestePáginaEstudante";
 	}
-	
 }
