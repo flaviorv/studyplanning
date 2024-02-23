@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class StudentTest {
 	
 	@Test
-	void authTest() {
+	void authTest_passwords_shold_match() {
 		
 		Student stest = new Student("João Carlos", "jc@gmail.com", "123");
 		

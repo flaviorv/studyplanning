@@ -7,55 +7,44 @@ public abstract class StudyTime {
 	
 	private String startDay;
 	private String lastDay;
-	private Integer studyMinutes;
+	private Integer studyTime;
+
+	public abstract Integer calculateStudyTime(Integer initTime);
 	
-	private Long startOfStudyMilliseconds;
-	public Boolean calculateStudyMinutes() {
-		try {
-			
-			Long studyMilliseconds = new Date().getTime() - startOfStudyMilliseconds;
-			Long studySeconds = (studyMilliseconds/1000);
-			Integer studyIntSeconds = studySeconds.intValue();
-			studyMinutes = studyIntSeconds/60;
-			return true;
-		}
-		catch(Exception e) {
-			
-			return false;
-		}
-	}
-	
-	public void setStartOfStudyMilleseconds() {
-		
-		startOfStudyMilliseconds = new Date().getTime();
+	public Integer millisecondsToMinutes(Long milliseconds) {		
+		Long _seconds = (milliseconds/1000);
+		Integer seconds = _seconds.intValue();
+		Integer minutes = (seconds/60);
+		return minutes;
 	}
 
-	public String getStartDay() {
-		
+	public Integer getCurrentMinutes() {
+		return millisecondsToMinutes(new Date().getTime());
+	}
+
+	public String getStartDay() {		
 		return this.startDay;
 	}
 
-	public void setStartDay() {
-		
-		if(this.getStartDay() == null) {
-		
+	public void setStartDay() {		
+		if(this.startDay == null) {		
 			this.startDay = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 		}
 	}
 
 	public String getLastDay() {
-		
-		return lastDay;
+		return this.lastDay;
 	}
 
-	public void setLastDay(String lastDay) {
-		
-		this.lastDay = lastDay;
+	public void setLastDay(){
+		this.lastDay = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	}
 
+	public Integer getStudyTime() {
+		return this.studyTime;
+	}
 
-	public Integer getStudyMinutes() {
-		
-		return studyMinutes;
+	public void setStudyTime(Integer studyTime) {
+		this.studyTime = studyTime;
 	}
 }

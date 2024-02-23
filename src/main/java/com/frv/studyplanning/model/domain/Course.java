@@ -7,31 +7,25 @@ public class Course extends StudyTime{
 	private String name;
 	private ArrayList<Subject> subjects = new ArrayList<>();
 	
-	public Course(String name) {
-		
-		this.name = name;
-		super.setLastDay(null);
-		super.setStartDay();
-		super.setStartOfStudyMilleseconds();
-	}
-	
-	public String getName() {
-		
+	public String getName() {		
 		return name;
 	}
 
-	public void setName(String name) {
-		
+	public void setName(String name) {		
 		this.name = name;
 	}
 
 	public ArrayList<Subject> getSubjects() {
-		
 		return subjects;
 	}
 
-	public void addSubjects(Subject subject) {
-		
+	public void addSubject(Subject subject) {
 		this.subjects.add(subject);
+	}
+
+	@Override
+	public Integer calculateStudyTime(Integer initTime) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

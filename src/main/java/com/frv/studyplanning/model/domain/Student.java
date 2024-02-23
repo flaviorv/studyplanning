@@ -9,60 +9,55 @@ public class Student {
 	private String password;
 	private ArrayList<Course> courses = new ArrayList<>();
 	
-	public Student(String name,String email,  String password) {
-		
+	public Student(String name,String email,  String password) {		
 		this.name = name;
 		this.email = email;
 		this.password = password;
 	}
 	
-	public Boolean authenticate(String password) {
-		
-		if(this.password == password) {
-			
+	@Override
+	public String toString() {
+		String strTest = "Nome: "+name+" Email: "+email+" Senha: "+password;
+		System.out.println(strTest);
+		return strTest;
+	}
+	
+	public Boolean authenticate(String password) {		
+		if(this.password == password) {			
 			return true;
-		}
-		
+		}		
 		return false;
 	}
 
-	public String getEmail() {
-		
+	public String getEmail() {		
 		return email;
 	}
 
-	public void setEmail(String email) {
-		
+	public void setEmail(String email) {		
 		this.email = email;
 	}
 
-	public String getName() {
-		
+	public String getName() {		
 		return name;
 	}
 
-	public void setName(String name) {
-		
+	public void setName(String name) {		
 		this.name = name;
 	}
 
-	public String getPassword() {
-		
+	public String getPassword() {		
 		return password;
 	}
 
-	public void setPassword(String password) {
-		
+	public void setPassword(String password) {		
 		this.password = password;
 	}
 
-	public ArrayList<Course> getCourses() {
-		
+	public ArrayList<Course> getCourses() {		
 		return courses;
 	}
 
-	public void addCourses(Course course) {
-		
+	public void addCourses(Course course) {		
 		this.courses.add(course);
 	}
 }
