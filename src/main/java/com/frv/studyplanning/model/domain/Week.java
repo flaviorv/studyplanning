@@ -2,6 +2,8 @@ package com.frv.studyplanning.model.domain;
 
 import java.util.ArrayList;
 
+import com.frv.studyplanning.model.auxiliary.Constants;
+
 public class Week extends StudyTime {
 	
 	private Integer id;
@@ -36,16 +38,16 @@ public class Week extends StudyTime {
 	
 	public String generateFeedback() {
 		if(this.points == 10) {
-			return "Parabéns você bateu todas as metas";
+			return Constants.BEST_FEEDBACK;
 		}
 		else if(this.points > 7){
-			return "Você foi muito bem, mas pode melhorar";
+			return Constants.GOOD_FEEDBACK;
 		}
 		else if(this.points < 7) {
-			return "Você precisa se dedicar mais";
+			return Constants.BAD_FEEDBACK;
 		}
 		else {
-			return "Não foi possível gerar feedback";
+			return Constants.NO_FEEDBACK;
 		}
 	}
 	

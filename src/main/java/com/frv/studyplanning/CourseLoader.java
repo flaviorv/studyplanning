@@ -12,12 +12,12 @@ import com.frv.studyplanning.model.domain.Student;
 public class CourseLoader implements ApplicationRunner{
 	
 	public void run(ApplicationArguments args) {
-		System.out.println("Starting CourseLoader");
-		Course c = new Course();
-		c.setName("Engenharia de Software");
-		c.setStudent(new Student("Soraia Ramos", "sr@gmail.com", "321321"));
-		
-		System.out.println(c.toString());
+//		System.out.println("Starting CourseLoader");
+//		Course c = new Course();
+//		c.setName("Engenharia de Software");
+//		c.setStudent(new Student("Soraia Ramos", "sr@gmail.com", "321321"));
+//		
+//		System.out.println(c.toString());
 		
 		
 	}

@@ -1,12 +1,29 @@
 package com.frv.studyplanning.model.domain;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tb_student")
 public class Student {
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Integer id;
+	@Column(name = "name")
 	private String name;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "password")
 	private String password;
 	
-	public Student(String name,String email,  String password) {		
+	public Student() {}
+	
+	public Student(String name, String email,  String password) {		
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -19,12 +36,7 @@ public class Student {
 		return strTest;
 	}
 	
-	public Boolean authenticate(String password) {		
-		if(this.password == password) {			
-			return true;
-		}		
-		return false;
-	}
+	
 
 	public String getEmail() {		
 		return email;
@@ -48,5 +60,12 @@ public class Student {
 
 	public void setPassword(String password) {		
 		this.password = password;
+	}
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }
