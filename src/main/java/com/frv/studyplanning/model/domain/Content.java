@@ -8,7 +8,6 @@ public class Content {
 	private String description;
 	
 	public Boolean setType(String type) {
-		
 		if(type == Constants.CONTENT_LINK) {
 		
 			this.type = type;
@@ -25,7 +24,6 @@ public class Content {
 			return true;
 		}
 		else {
-			
 			System.out.println("ERROR - Type of Content not allowed - ERROR");
 			return false;
 		}

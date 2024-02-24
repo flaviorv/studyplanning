@@ -6,7 +6,8 @@ public class Week extends StudyTime {
 	
 	private Integer id;
 	private Integer startTime;
-	private ArrayList<Goal> goals = new ArrayList<>();
+	private ArrayList<StudyGoal> goals = new ArrayList<>();
+	private TimeGoal timeGoal;
 	private Integer points;
 	private String feedback;
 	private Boolean ended;
@@ -22,6 +23,10 @@ public class Week extends StudyTime {
 			super.setStudyTime(studySessionTime);
 		}
 		return super.getStudyTime();
+	}
+	
+	public void calculatePoints() {
+		
 	}
 	
 	public Boolean setEnded() {
@@ -59,11 +64,11 @@ public class Week extends StudyTime {
 		this.startTime = startTime;
 	}
 
-	public ArrayList<Goal> getGoals() {		
+	public ArrayList<StudyGoal> getGoals() {		
 		return goals;
 	}
 	
-	public void addGoal(Goal goal) {		
+	public void addGoal(StudyGoal goal) {		
 		this.goals.add(goal);
 	}
 	
@@ -89,5 +94,13 @@ public class Week extends StudyTime {
 
 	public void setStartSessionTime() {
 		this.startSessionTime = super.getCurrentMinutes();
+	}
+
+	public TimeGoal getTimeGoal() {
+		return this.timeGoal;
+	}
+
+	public void setTimeGoal(TimeGoal timeGoal) {
+		this.timeGoal = timeGoal;
 	}
 }

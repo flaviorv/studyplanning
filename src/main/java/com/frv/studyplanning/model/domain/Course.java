@@ -1,11 +1,14 @@
 package com.frv.studyplanning.model.domain;
 
-import java.util.ArrayList;
-
 public class Course extends StudyTime{
 	
 	private String name;
-	private ArrayList<Subject> subjects = new ArrayList<>();
+	private Student student;
+	
+	@Override
+	public String toString() {
+		return "Curso "+name+" Estudante "+student.getName();
+	}
 	
 	public String getName() {		
 		return name;
@@ -15,17 +18,17 @@ public class Course extends StudyTime{
 		this.name = name;
 	}
 
-	public ArrayList<Subject> getSubjects() {
-		return subjects;
-	}
-
-	public void addSubject(Subject subject) {
-		this.subjects.add(subject);
-	}
-
 	@Override
 	public Integer calculateStudyTime(Integer initTime) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
 	}
 }

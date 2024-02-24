@@ -24,6 +24,7 @@ public class ContentLoader implements ApplicationRunner{
 		System.out.println(c2.getDesctiption());
 		
 		Content  c3 = new Content();
+		
 		c3.setDescription("GRASP");
 		c3.setType(Constants.CONTENT_KEYPOINT);
 		System.out.println(c3.getDesctiption());

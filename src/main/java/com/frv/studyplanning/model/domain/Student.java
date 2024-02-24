@@ -1,13 +1,10 @@
 package com.frv.studyplanning.model.domain;
 
-import java.util.ArrayList;
-
 public class Student {
 	
 	private String name;
 	private String email;
 	private String password;
-	private ArrayList<Course> courses = new ArrayList<>();
 	
 	public Student(String name,String email,  String password) {		
 		this.name = name;
@@ -51,13 +48,5 @@ public class Student {
 
 	public void setPassword(String password) {		
 		this.password = password;
-	}
-
-	public ArrayList<Course> getCourses() {		
-		return courses;
-	}
-
-	public void addCourses(Course course) {		
-		this.courses.add(course);
 	}
 }
