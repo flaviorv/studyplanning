@@ -7,7 +7,8 @@ public class Week extends StudyTime {
 	private Integer id;
 	private Integer startTime;
 	private ArrayList<StudyGoal> goals = new ArrayList<>();
-	private TimeGoal timeGoal;
+	private Float donePercent;
+	private Float timeDonePercent;
 	private Integer points;
 	private String feedback;
 	private Boolean ended;
@@ -25,8 +26,27 @@ public class Week extends StudyTime {
 		return super.getStudyTime();
 	}
 	
-	public void calculatePoints() {
-		
+	public Integer calculatePoints() {
+		Float goalsPercent = this.getDonePercent();
+		Float timePercent = this.getTimeDonePercent();	
+		Integer average = (int) ((goalsPercent+timePercent)/20);
+		this.setPoints(average);
+		return average;
+	}
+	
+	public String generateFeedback() {
+		if(this.points == 10) {
+			return "Parabéns você bateu todas as metas";
+		}
+		else if(this.points > 7){
+			return "Você foi muito bem, mas pode melhorar";
+		}
+		else if(this.points < 7) {
+			return "Você precisa se dedicar mais";
+		}
+		else {
+			return "Não foi possível gerar feedback";
+		}
 	}
 	
 	public Boolean setEnded() {
@@ -96,11 +116,19 @@ public class Week extends StudyTime {
 		this.startSessionTime = super.getCurrentMinutes();
 	}
 
-	public TimeGoal getTimeGoal() {
-		return this.timeGoal;
+	public Float getDonePercent() {
+		return donePercent;
 	}
 
-	public void setTimeGoal(TimeGoal timeGoal) {
-		this.timeGoal = timeGoal;
+	public void setDonePercent(Float donePercent) {
+		this.donePercent = donePercent;
+	}
+
+	public Float getTimeDonePercent() {
+		return timeDonePercent;
+	}
+
+	public void setTimeDonePercent(Float timeDonePercent) {
+		this.timeDonePercent = timeDonePercent;
 	}
 }

@@ -21,7 +21,6 @@ public class StudyGoal extends Goal <ArrayList<StudyGoal>>{
 			}
 		}
 		Float calculation = isDone/amount*100;
-		setDonePercent(calculation);
 		return calculation;
 	}
 	
