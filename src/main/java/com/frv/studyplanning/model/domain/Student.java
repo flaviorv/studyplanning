@@ -1,10 +1,13 @@
 package com.frv.studyplanning.model.domain;
 
-import jakarta.persistence.Column;
+import java.util.List;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,14 +15,13 @@ import jakarta.persistence.Table;
 public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Integer id;
-	@Column(name = "name")
 	private String name;
-	@Column(name = "email")
 	private String email;
-	@Column(name = "password")
 	private String password;
+	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@JoinColumn(name = "id_student")
+	private List<Course> courses;
 	
 	public Student() {}
 	
