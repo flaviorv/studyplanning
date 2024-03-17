@@ -15,6 +15,10 @@ public class CourseService {
 		return courseRepository.getAllCourses(idStudent);
 	}
 	
+	public Course getCourse(Integer course) {
+		return courseRepository.getCourse(course);
+	}
+	
 	public Course saveCourse(Course course) {
 		return courseRepository.save(course);
 	}

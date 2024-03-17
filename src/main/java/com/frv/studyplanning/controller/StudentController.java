@@ -18,16 +18,15 @@ public class StudentController {
 	
 	@GetMapping("/")
 	public String intialPage() {
-		
 		return "InitialPage";
 	}
 	
-	@PostMapping("/")
-	public Student loginStudent(@RequestBody Student student) {
+	@PostMapping("/authenticate")
+	public Student authenticateStudent(@RequestBody Student student) {
 		return studentService.authenticate(student);
 	}
 	
-	@PostMapping("/savestudent")
+	@PostMapping("/register")
 	public Student saveStudent(@RequestBody Student student) {
 		return studentService.saveStudent(student);
 	}
