@@ -1,20 +1,44 @@
 package com.frv.studyplanning.model.domain;
 
-import java.util.ArrayList;
-
 import com.frv.studyplanning.model.auxiliary.Constants;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+
+@Entity
+@Table(name = "tb_week")
 public class Week extends StudyTime {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(name = "start_time")
 	private Integer startTime;
-	private ArrayList<StudyGoal> goals = new ArrayList<>();
+	@Column(name = "done_percent")
 	private Float donePercent;
+	@Column(name = "time_done_percent")
 	private Float timeDonePercent;
 	private Integer points;
 	private String feedback;
 	private Boolean ended;
+	@ManyToOne
+	@JoinColumn(name = "id_subject")
+	private Subject subject;
+//	@OneToOne
+//	private TimeGoal timeGoal;
+//	@OneToMany
+//	private List<StudyGoal> goals;
 	
+	public Week() {}
+	
+	@Transient
 	private Integer startSessionTime;
 	@Override
 	public Integer calculateStudyTime(Integer startSessionTime) {
@@ -85,14 +109,6 @@ public class Week extends StudyTime {
 	public void setStartTime(Integer startTime) {
 		this.startTime = startTime;
 	}
-
-	public ArrayList<StudyGoal> getGoals() {		
-		return goals;
-	}
-	
-	public void addGoal(StudyGoal goal) {		
-		this.goals.add(goal);
-	}
 	
 	public Integer getPoints() {		
 		return points;
@@ -132,5 +148,13 @@ public class Week extends StudyTime {
 
 	public void setTimeDonePercent(Float timeDonePercent) {
 		this.timeDonePercent = timeDonePercent;
+	}
+	
+	public Subject getSubject() {
+		return subject;
+	}
+
+	public void setSubject(Subject subject) {
+		this.subject = subject;
 	}
 }

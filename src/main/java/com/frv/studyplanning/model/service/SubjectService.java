@@ -3,6 +3,7 @@ package com.frv.studyplanning.model.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import com.frv.studyplanning.model.domain.Subject;
@@ -17,7 +18,7 @@ public class SubjectService {
 		return subjectRepository.getAllSubjects(idCourse);
 	}
 	
-	public Subject saveSubject(Subject subject) {
+	public Subject saveSubject(@NonNull Subject subject) {
 		return subjectRepository.save(subject);
 	}
 

@@ -11,7 +11,7 @@ import com.frv.studyplanning.model.auxiliary.Constants;
 @SpringBootTest
 public class WeekTest {
 	
-//	Week wtest = new Week();
+	Week wtest = new Week();
 //	
 //	@Test
 //	void shold_subtract_the_current_minutes_from_the_start_time() {

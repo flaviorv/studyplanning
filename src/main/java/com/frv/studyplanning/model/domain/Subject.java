@@ -1,11 +1,15 @@
  package com.frv.studyplanning.model.domain;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
  @Entity
@@ -18,8 +22,9 @@ import jakarta.persistence.Table;
  	private String name;
 // 	@OneToMany
 // 	private List<Content> contents;
-// 	@OneToMany
-// 	private List<Week> weeks;
+ 	@OneToMany(cascade = CascadeType.REMOVE,  orphanRemoval = true)
+ 	@JoinColumn(name = "id_subject")
+ 	private List<Week> weeks;
  	@ManyToOne
  	@JoinColumn(name = "id_course")
  	private Course course;

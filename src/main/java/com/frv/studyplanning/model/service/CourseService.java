@@ -2,6 +2,7 @@ package com.frv.studyplanning.model.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import com.frv.studyplanning.model.domain.Course;
 import com.frv.studyplanning.model.repository.CourseRepository;
@@ -19,7 +20,7 @@ public class CourseService {
 		return courseRepository.getCourse(course);
 	}
 	
-	public Course saveCourse(Course course) {
+	public Course saveCourse(@NonNull Course course) {
 		return courseRepository.save(course);
 	}
 }
