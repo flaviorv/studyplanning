@@ -1,5 +1,8 @@
 package com.frv.studyplanning.model.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.frv.studyplanning.model.auxiliary.Constants;
 
 import jakarta.persistence.Column;
@@ -26,16 +29,33 @@ public class Week extends StudyTime {
 	@Column(name = "time_done_percent")
 	private Float timeDonePercent;
 	private Integer points;
-	private String feedback;
 	private Boolean ended;
 	@ManyToOne
 	@JoinColumn(name = "id_subject")
 	private Subject subject;
 //	@OneToOne
-//	private TimeGoal timeGoal;
+	@Transient
+	private TimeGoal timeGoal;
 //	@OneToMany
-//	private List<StudyGoal> goals;
+	@Transient
+	private List<StudyGoal> goals = new ArrayList<StudyGoal>();
 	
+	public TimeGoal getTimeGoal() {
+		return timeGoal;
+	}
+
+	public void setTimeGoal(TimeGoal timeGoal) {
+		this.timeGoal = timeGoal;
+	}
+
+	public List<StudyGoal> getGoals() {
+		return goals;
+	}
+
+	public void addGoal(StudyGoal goal) {
+		this.goals.add(goal);
+	}
+
 	public Week() {}
 	
 	@Transient
@@ -116,14 +136,6 @@ public class Week extends StudyTime {
 	
 	public void setPoints(Integer points) {		
 		this.points = points;
-	}
-	
-	public String getFeedback() {		
-		return feedback;
-	}
-	
-	public void setFeedback(String feedback) {		
-		this.feedback = feedback;
 	}
 	
 	public Integer getStartSessionTime() {
