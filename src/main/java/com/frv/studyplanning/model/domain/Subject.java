@@ -16,26 +16,16 @@ import jakarta.persistence.Table;
  @Table(name = "tb_subject")
  public class Subject extends StudyTime{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	
  	private String name;
 // 	@OneToMany
 // 	private List<Content> contents;
  	@OneToMany(cascade = CascadeType.REMOVE,  orphanRemoval = true)
- 	@JoinColumn(name = "id_subject")
+ 	@JoinColumn(name = "subject_id")
  	private List<Week> weeks;
  	@ManyToOne
- 	@JoinColumn(name = "id_course")
+ 	@JoinColumn(name = "course_id")
  	private Course course;
-
- 	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Course getCourse() {
 		return course;

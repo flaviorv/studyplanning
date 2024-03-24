@@ -20,7 +20,7 @@ public class Student {
 	private String email;
 	private String password;
 	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-	@JoinColumn(name = "id_student")
+	@JoinColumn(name = "student_id")
 	private List<Course> courses;
 	
 	public Student() {}

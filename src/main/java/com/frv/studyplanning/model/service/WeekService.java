@@ -18,7 +18,7 @@ public class WeekService {
 		return weekRepository.getAllWeeks(subjectId);
 	}
 	
-	public Week saveWeek(@NonNull Week week) {
+	public Week saveWeek(Week week) {
 		return weekRepository.save(week);
 	}
 	

@@ -15,15 +15,13 @@ import jakarta.persistence.Table;
 @Table(name = "tb_course")
 public class Course extends StudyTime{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	
 	private String name;
 	@ManyToOne
-	@JoinColumn(name = "id_student")
+	@JoinColumn(name = "student_id")
 	private Student student;
 	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-	@JoinColumn(name = "id_course")
+	@JoinColumn(name = "course_id")
 	private List<Subject> subjects;
 	
 	public Course() {}
@@ -55,11 +53,4 @@ public class Course extends StudyTime{
 		this.student = student;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 }

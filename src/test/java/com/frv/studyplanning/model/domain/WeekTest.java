@@ -45,7 +45,7 @@ public class WeekTest {
 	 void shold_calculate_points_and_genetate_feedback( ) {
 		 Week wtest = new Week();
 		 StudyGoal sg1 = new StudyGoal("Fazer protótipo de telas da Loja de Ração");
-		 sg1.setDone();
+		 sg1.alterDone();
 		 wtest.addGoal(sg1);
 		 wtest.addGoal(new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns"));
 		 wtest.addGoal(new StudyGoal("Implementar database no Studyplanning"));

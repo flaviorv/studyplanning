@@ -8,6 +8,7 @@ import com.frv.studyplanning.model.domain.Week;
 
 @Repository
 public interface WeekRepository extends JpaRepository<Week, Integer>{
-	@Query("from Week w where w.subject.id = :idSubject")
-	List<Week> getAllWeeks(Integer idSubject);
+	@Query("from Week w where w.subject.id = :subjectId")
+	List<Week> getAllWeeks(Integer subjectId);
+	
 }
