@@ -24,6 +24,8 @@ public class StudyGoal extends Goal <List<StudyGoal>>{
 		this.description = description;
 	}
 	
+	public StudyGoal() {}
+	
 	@Override
 	public Float calculateDonePercent(List<StudyGoal> goals) {
 		float amount = 0;

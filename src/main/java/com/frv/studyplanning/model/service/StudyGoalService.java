@@ -21,6 +21,10 @@ public class StudyGoalService {
 		return studyGoalRepository.getStudyGoalPerId(studyGoalId);
 	}
 	
+	public StudyGoal saveStudyGoal(StudyGoal studyGoal) {
+		return studyGoalRepository.save(studyGoal);
+	}
+	
 	public String alterStudyGoalIsDone(Integer studyGoalId) {
 		String message = "";
 		try {

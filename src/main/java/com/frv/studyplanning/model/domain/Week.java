@@ -35,18 +35,16 @@ public class Week extends StudyTime {
 	private Subject subject;
 	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
 	@JoinColumn(name = "week_id")
-	private List<StudyGoal> goals = new ArrayList<StudyGoal>();
+	private List<StudyGoal> goals;
+//	= new ArrayList<StudyGoal>();
 
-	
-	
-
-	public List<StudyGoal> getGoals() {
-		return goals;
-	}
-
-	public void addGoal(StudyGoal goal) {
-		this.goals.add(goal);
-	}
+//	public List<StudyGoal> getGoals() {
+//		return goals;
+//	}
+//
+//	public void addGoal(StudyGoal goal) {
+//		this.goals.add(goal);
+//	}
 
 	public Week() {}
 	
