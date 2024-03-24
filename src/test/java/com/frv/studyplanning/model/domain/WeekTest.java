@@ -3,9 +3,10 @@ package com.frv.studyplanning.model.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import com.frv.studyplanning.model.auxiliary.Constants;
 
 @SpringBootTest
@@ -46,10 +47,10 @@ public class WeekTest {
 		 Week wtest = new Week();
 		 StudyGoal sg1 = new StudyGoal("Fazer protótipo de telas da Loja de Ração");
 		 sg1.alterDone();
-		 wtest.addGoal(sg1);
-		 wtest.addGoal(new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns"));
-		 wtest.addGoal(new StudyGoal("Implementar database no Studyplanning"));
-		 wtest.setDonePercent(sg1.calculateDonePercent(wtest.getGoals()));
+		 StudyGoal sg2 = new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns");
+		 StudyGoal sg3 = new StudyGoal("Implementar database no Studyplanning");
+		 List<StudyGoal> sglist = Arrays.asList(sg1,sg2,sg3);
+		 wtest.setDonePercent(sg1.calculateDonePercent(sglist));
 		 System.out.println(wtest.getDonePercent());
 		 TimeGoal tgtest = new TimeGoal(3);
 		 wtest.setStudyTime(1);
