@@ -1,20 +1,15 @@
 package com.frv.studyplanning.model.domain;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-
 import com.frv.studyplanning.model.auxiliary.Constants;
-import com.frv.studyplanning.model.domain.TimeGoal;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -29,7 +24,7 @@ public class Week extends StudyTime {
 	private Float donePercent;
 	@Column(name = "time_done_percent")
 	private Float timeDonePercent;
-	private Boolean ended;
+	private Boolean ended = false;
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
 	private Subject subject;
@@ -75,9 +70,17 @@ public class Week extends StudyTime {
 		}
 	}
 	
+	@Override
+	public void setLastDay() {
+		Long currentMilliseconds = new Date().getTime();
+		Long lastMilliseconds = currentMilliseconds + 604800000;
+		super.setLastDay( new SimpleDateFormat("dd/MM/yyyy").format(new Date(lastMilliseconds)));
+	}
+	
 	public Boolean setEnded() {
 		Integer weekTime = super.getCurrentMinutes() - startTime;
 		if(weekTime >= 10080) {
+			setLastDay();
 			return this.ended = true;
 		}	
 		return this.ended = false;

@@ -18,6 +18,10 @@ public class SubjectService {
 		return subjectRepository.getAllSubjects(idCourse);
 	}
 	
+	public Subject getSubjectPerId(Integer subjectId) {
+		return subjectRepository.getSubjectPerId(subjectId);
+	}
+	
 	public Subject saveSubject(@NonNull Subject subject) {
 		return subjectRepository.save(subject);
 	}

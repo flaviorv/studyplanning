@@ -19,7 +19,7 @@ public abstract class StudyTime {
 	@Column(name = "last_day")
 	private String lastDay;
 	@Column(name = "study_time")
-	private Integer studyTime;
+	private Integer studyTime = 0;
 
 	public abstract Integer calculateStudyTime(Integer initTime);
 	
@@ -50,6 +50,10 @@ public abstract class StudyTime {
 
 	public void setLastDay(){
 		this.lastDay = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+	}
+	
+	public void setLastDay(String day) {
+		this.lastDay = day;
 	}
 
 	public Integer getStudyTime() {

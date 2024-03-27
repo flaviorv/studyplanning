@@ -11,9 +11,7 @@ import com.frv.studyplanning.model.auxiliary.Constants;
 
 @SpringBootTest
 public class WeekTest {
-	
-	
-	
+		
 	@Test
 	void shold_subtract_the_current_minutes_from_the_start_time() {
 		Week wtest = new Week();
@@ -62,4 +60,21 @@ public class WeekTest {
 		 assertEquals(points, 3);
 		 assertEquals(feedback, Constants.BAD_FEEDBACK);
 	 }
+	 
+	@Test
+	void shold_start_a_new_week_and_return_start_day_and_last_day() {
+		Week wtest = new Week();
+		wtest.setStartTime();
+		wtest.setStartDay();
+		wtest.setLastDay();
+		
+//		// tape the current date
+//		String startDay = "26/03/2024";
+//		// tape one week after startDay
+//		String lastDay = "02/04/2024";
+//		
+//		assertEquals(wtest.getStartDay(), startDay);
+//		assertEquals(wtest.getLastDay(), lastDay);
+	}
+	 
 }

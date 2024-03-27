@@ -11,6 +11,8 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer > {
 	@Query("from Subject su where su.course.id = :idCourse")
 	List<Subject> getAllSubjects(Integer idCourse);
 	
+	@Query("from Subject su where su.id = :subjectId")
+	Subject getSubjectPerId(Integer subjectId);
 	
 
 }
