@@ -25,4 +25,10 @@ public class SubjectController {
 	public List<Subject> getAllSubjects(@RequestBody Course course) {
 		return subjectService.getAllSubjects(course.getId());
 	}
+	
+
+	public Subject getSubjectPerId(@RequestBody Subject subject) {
+		return subjectService.getSubjectPerId(subject.getId());
+	}
+	
 }

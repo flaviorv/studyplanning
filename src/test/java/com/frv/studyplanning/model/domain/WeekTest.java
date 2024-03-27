@@ -48,13 +48,15 @@ public class WeekTest {
 		 StudyGoal sg2 = new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns");
 		 StudyGoal sg3 = new StudyGoal("Implementar database no Studyplanning");
 		 List<StudyGoal> sglist = Arrays.asList(sg1,sg2,sg3);
-		 wtest.setDonePercent(sg1.calculateDonePercent(sglist));
-		 System.out.println(wtest.getDonePercent());
+		 
+		 Float goalsPercent = new StudyGoal().calculateDonePercent(sglist);
+		 
 		 TimeGoal tgtest = new TimeGoal(3);
 		 wtest.setStudyTime(1);
-		 wtest.setTimeDonePercent(tgtest.calculateDonePercent(wtest.getStudyTime()));
+		
+		 Float timePercent = tgtest.calculateDonePercent(wtest.getStudyTime());
 		 
-		 Integer points = wtest.calculatePoints();
+		 Integer points = wtest.calculatePoints(timePercent, goalsPercent) ;
 		 String feedback = wtest.generateFeedback();
 		 
 		 assertEquals(points, 3);

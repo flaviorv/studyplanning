@@ -9,12 +9,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_time_goal")
 public class TimeGoal extends Goal<Integer>{
 	
-	private Integer timeGoal;
+	private Integer timeGoal = 0;
 	@OneToOne
 	@JoinColumn(name = "week_id")
 	private Week week;

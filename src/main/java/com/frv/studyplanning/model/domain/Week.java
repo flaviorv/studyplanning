@@ -20,10 +20,7 @@ public class Week extends StudyTime {
 	
 	@Column(name = "start_time")
 	private Integer startTime;
-	@Column(name = "done_percent")
-	private Float donePercent;
-	@Column(name = "time_done_percent")
-	private Float timeDonePercent;
+	
 	private Boolean ended = false;
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
@@ -48,21 +45,22 @@ public class Week extends StudyTime {
 		return super.getStudyTime();
 	}
 	
-	public Integer calculatePoints() {
-		Float goalsPercent = this.getDonePercent();
-		Float timePercent = this.getTimeDonePercent();	
+	public Integer calculatePoints(Float timePercent, Float goalsPercent) {
 		Integer average = (int) ((goalsPercent+timePercent)/20);
+		setPoints(average);
 		return average;
 	}
 	
+	@Transient
+	Integer points = 0;
 	public String generateFeedback() {
-		if(calculatePoints() == 10) {
+		if(points == 10) {
 			return Constants.BEST_FEEDBACK;
 		}
-		else if(calculatePoints() > 7){
+		else if(points > 7){
 			return Constants.GOOD_FEEDBACK;
 		}
-		else if(calculatePoints() < 7) {
+		else if(points < 7) {
 			return Constants.BAD_FEEDBACK;
 		}
 		else {
@@ -80,7 +78,6 @@ public class Week extends StudyTime {
 	public Boolean setEnded() {
 		Integer weekTime = super.getCurrentMinutes() - startTime;
 		if(weekTime >= 10080) {
-			setLastDay();
 			return this.ended = true;
 		}	
 		return this.ended = false;
@@ -113,21 +110,6 @@ public class Week extends StudyTime {
 		this.startSessionTime = super.getCurrentMinutes();
 	}
 
-	public Float getDonePercent() {
-		return donePercent;
-	}
-
-	public void setDonePercent(Float donePercent) {
-		this.donePercent = donePercent;
-	}
-
-	public Float getTimeDonePercent() {
-		return timeDonePercent;
-	}
-
-	public void setTimeDonePercent(Float timeDonePercent) {
-		this.timeDonePercent = timeDonePercent;
-	}
 	
 	public Subject getSubject() {
 		return subject;
@@ -135,5 +117,13 @@ public class Week extends StudyTime {
 
 	public void setSubject(Subject subject) {
 		this.subject = subject;
+	}
+
+	public Integer getPoints() {
+		return points;
+	}
+
+	public void setPoints(Integer points) {
+		this.points = points;
 	}
 }

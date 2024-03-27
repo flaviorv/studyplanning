@@ -20,7 +20,8 @@ public class CourseService {
 		return courseRepository.getCourse(course);
 	}
 	
-	public Course saveCourse(@NonNull Course course) {
+	public Course saveCourse(Course course) {
+		course.setLastDay();
 		return courseRepository.save(course);
 	}
 }

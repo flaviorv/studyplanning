@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.frv.studyplanning.model.domain.StudyGoal;
 import com.frv.studyplanning.model.domain.Subject;
+import com.frv.studyplanning.model.domain.TimeGoal;
 import com.frv.studyplanning.model.domain.Week;
 import com.frv.studyplanning.model.service.SubjectService;
 import com.frv.studyplanning.model.service.WeekService;
@@ -20,7 +23,15 @@ public class WeekController {
 	private WeekService weekService;
 	
 	@Autowired
-	private SubjectService subjectService;
+	private SubjectController subjectController;
+	
+	@Autowired
+	private TimeGoalController timeGoalController;
+	
+	@Autowired
+	private StudyGoalController studyGoalController;
+	
+
 	
 	@PostMapping("/weeks")
 	public List<Week> getAllWeeks(@RequestBody Subject subject){
@@ -44,8 +55,23 @@ public class WeekController {
 		newWeek.setStartTime();
 		newWeek.setStartDay();
 		newWeek.setLastDay();
-		newWeek.setSubject(subjectService.getSubjectPerId(subject.getId()));
+		newWeek.setSubject(subjectController.getSubjectPerId(subject));
 		return saveWeek(newWeek);
+	}
+	
+	@PostMapping("/endweek")
+	public Week endWeek(@RequestBody Week week) {
+		
+		if(week.setEnded()) {
+			TimeGoal timeGoal = timeGoalController.getTimeGoal(week);
+			Float tgDonePercent = timeGoal.calculateDonePercent(week.getStudyTime());
+			Float stDonePercent = new StudyGoal().calculateDonePercent(
+				studyGoalController.studyGoalsPerWeek(week)
+			);
+			week.calculatePoints(tgDonePercent, tgDonePercent);
+			week.generateFeedback();
+		}
+		return week;
 	}
 	
 }
