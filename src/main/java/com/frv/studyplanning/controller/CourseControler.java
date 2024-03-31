@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.frv.studyplanning.model.domain.Course;
@@ -31,6 +32,11 @@ public class CourseControler {
 	
 	@PostMapping("/savecourse")
 	public Course saveCourse(@RequestBody Course course) {
+		return courseService.saveCourse(course);
+	}
+	
+	@PutMapping("/updatecourse")
+	public Course updateCourse(@RequestBody Course course) {
 		return courseService.saveCourse(course);
 	}
 }

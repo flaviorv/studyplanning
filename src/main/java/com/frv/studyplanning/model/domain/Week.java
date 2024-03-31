@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -17,43 +18,48 @@ import jakarta.persistence.Transient;
 @Table(name = "tb_week")
 public class Week extends StudyTime {
 	
-	
 	@Column(name = "start_time")
-	private Integer startTime;
+	private Integer startTime = 0;
+	
+	@Column(name = "start_session_time")
+	private Integer startSessionTime = 0;
 	
 	private Boolean ended = false;
+	
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
 	private Subject subject;
-	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+	
+	@OneToMany(cascade = CascadeType.DETACH, orphanRemoval = false)
 	@JoinColumn(name = "week_id")
 	private List<StudyGoal> goals;
 
 	public Week() {}
 	
-	@Transient
-	private Integer startSessionTime;
+	@Override
+	public String toString() {
+		String str = "startSessionTime "+startSessionTime.toString()+"\n"+
+				"startTime "+startTime.toString()+"\n"+
+				"ended "+ended.toString()+"\n"+
+				"studytime "+getStudyTime().toString()+"\n"
+				;
+		return str;
+	}
+	
 	@Override
 	public Integer calculateStudyTime(Integer startSessionTime) {
-		Integer studySessionTime = super.getCurrentMinutes() - startSessionTime;
-		if(super.getStudyTime() != null) {
-			super.setStudyTime(studySessionTime + super.getStudyTime());
-		}
-		else {
-			super.setStudyTime(studySessionTime);
-		}
-		return super.getStudyTime();
+		Integer studySessionTime = getCurrentMinutes() - startSessionTime;
+		super.setStudyTime(studySessionTime + getStudyTime());
+		return getStudyTime();
 	}
 	
 	public Integer calculatePoints(Float timePercent, Float goalsPercent) {
 		Integer average = (int) ((goalsPercent+timePercent)/20);
-		setPoints(average);
 		return average;
 	}
 	
-	@Transient
-	Integer points = 0;
-	public String generateFeedback() {
+	
+	public String generateFeedback(Integer points) {
 		if(points == 10) {
 			return Constants.BEST_FEEDBACK;
 		}
@@ -78,9 +84,9 @@ public class Week extends StudyTime {
 	public Boolean setEnded() {
 		Integer weekTime = super.getCurrentMinutes() - startTime;
 		if(weekTime >= 10080) {
-			return this.ended = true;
+			return ended = true;
 		}	
-		return this.ended = false;
+		return ended = false;
 	}
 	
 	public Boolean isEnded() {
@@ -92,14 +98,13 @@ public class Week extends StudyTime {
 	}
 
 	public void setStartTime() {
-		if(startTime == null) {
-			this.startTime = super.getCurrentMinutes();
-		}
+		startTime = getCurrentMinutes();
 	}
 	
 	//for test
 	public void setStartTime(Integer startTime) {
 		this.startTime = startTime;
+		
 	}
 	
 	public Integer getStartSessionTime() {
@@ -107,7 +112,11 @@ public class Week extends StudyTime {
 	}
 
 	public void setStartSessionTime() {
-		this.startSessionTime = super.getCurrentMinutes();
+		startSessionTime = getCurrentMinutes();
+	}
+	
+	public void setStartSessionTime(Integer startSessionTime) {
+		this.startSessionTime = startSessionTime;
 	}
 
 	
@@ -119,11 +128,4 @@ public class Week extends StudyTime {
 		this.subject = subject;
 	}
 
-	public Integer getPoints() {
-		return points;
-	}
-
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
 }

@@ -44,7 +44,7 @@ public class WeekTest {
 	 void shold_calculate_points_and_genetate_feedback( ) {
 		 Week wtest = new Week();
 		 StudyGoal sg1 = new StudyGoal("Fazer protótipo de telas da Loja de Ração");
-		 sg1.alterDone();
+		 sg1.setDone(true);
 		 StudyGoal sg2 = new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns");
 		 StudyGoal sg3 = new StudyGoal("Implementar database no Studyplanning");
 		 List<StudyGoal> sglist = Arrays.asList(sg1,sg2,sg3);
@@ -57,10 +57,17 @@ public class WeekTest {
 		 Float timePercent = tgtest.calculateDonePercent(wtest.getStudyTime());
 		 
 		 Integer points = wtest.calculatePoints(timePercent, goalsPercent) ;
-		 String feedback = wtest.generateFeedback();
+		 String feedback = wtest.generateFeedback(points);
 		 
 		 assertEquals(points, 3);
 		 assertEquals(feedback, Constants.BAD_FEEDBACK);
+		 
+		 timePercent = (float) 100.0;
+		 goalsPercent = (float) 100.0;
+		 points = wtest.calculatePoints(timePercent, goalsPercent) ;
+		 assertEquals(10, points);
+//		 assertEquals(feedback, Constants.BEST_FEEDBACK);
+		 System.out.println(wtest.toString());
 	 }
 	 
 	@Test

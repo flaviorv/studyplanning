@@ -25,24 +25,4 @@ public class StudyGoalService {
 		return studyGoalRepository.save(studyGoal);
 	}
 	
-	public String alterStudyGoalIsDone(Integer studyGoalId) {
-		String message = "";
-		try {
-			StudyGoal studyGoal = getStudyGoalPerId(studyGoalId);
-			studyGoal.alterDone();
-			if(studyGoal.isDone()) {
-				message = "Objetivo de estudo " + studyGoal.getId() + " concluído.";
-				System.out.println(message);
-				return message;
-			}
-			message = "Concluir objetivo de estudo " + studyGoal.getId();
-			System.out.println(message);
-			return message;
-		} catch (Exception e) {
-			message = "Erro ao atualizar objetivo de estudo.";
-			System.out.println(message);
-			System.out.println(e.getMessage());
-			return message;
-		}
-	}
 }

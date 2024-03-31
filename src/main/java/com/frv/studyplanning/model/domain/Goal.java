@@ -20,12 +20,8 @@ public abstract class Goal <T>{
 		return done;
 	}
 	
-	public void alterDone() {	
-		if(this.done == false) {
-			this.done = true;
-		}else {
-			this.done = false;
-		}
+	public void setDone(Boolean isDone) {	
+		done = isDone;
 	}
 	
 	public Integer getId() {

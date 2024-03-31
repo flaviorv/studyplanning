@@ -22,7 +22,9 @@ public class SubjectService {
 		return subjectRepository.getSubjectPerId(subjectId);
 	}
 	
-	public Subject saveSubject(@NonNull Subject subject) {
+	public Subject saveSubject(Subject subject) {
+		subject.setStartDay();
+		subject.setLastDay();
 		return subjectRepository.save(subject);
 	}
 

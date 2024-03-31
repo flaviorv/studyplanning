@@ -1,19 +1,17 @@
 package com.frv.studyplanning.controller;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.frv.studyplanning.model.domain.StudyGoal;
 import com.frv.studyplanning.model.domain.Subject;
 import com.frv.studyplanning.model.domain.TimeGoal;
 import com.frv.studyplanning.model.domain.Week;
-import com.frv.studyplanning.model.service.SubjectService;
 import com.frv.studyplanning.model.service.WeekService;
 
 @RestController
@@ -40,12 +38,11 @@ public class WeekController {
 	
 	@PutMapping("/updateweek")
 	public Week updateWeek(@RequestBody Week week) {
-		return weekService.updateWeek(week);
+		return weekService.saveWeek(week);
 	}
 	
 	@PostMapping("/saveweek")
 	public Week saveWeek(@RequestBody Week week) {
-		week.setStartTime();
 		return weekService.saveWeek(week);
 	}
 	
@@ -59,19 +56,59 @@ public class WeekController {
 		return saveWeek(newWeek);
 	}
 	
-	@PostMapping("/endweek")
-	public Week endWeek(@RequestBody Week week) {
-		
+	@PostMapping("/generatefeedback")
+	public String checkended(@RequestBody Week week) {
 		if(week.setEnded()) {
 			TimeGoal timeGoal = timeGoalController.getTimeGoal(week);
 			Float tgDonePercent = timeGoal.calculateDonePercent(week.getStudyTime());
 			Float stDonePercent = new StudyGoal().calculateDonePercent(
 				studyGoalController.studyGoalsPerWeek(week)
 			);
-			week.calculatePoints(tgDonePercent, tgDonePercent);
-			week.generateFeedback();
+			
+			Integer points = week.calculatePoints(tgDonePercent, stDonePercent);
+			String feedback = week.generateFeedback(points);
+			String _feedback = feedback+"\n"+ 
+					"Meta de Tempo de estudo: "+tgDonePercent+"%\n"+
+					"Metas concluídas: "+tgDonePercent+"%\n"+
+					"Pontuação: "+points;
+			System.out.println((int) week.getStudyTime() + stDonePercent);
+			return _feedback;
 		}
-		return week;
+		return week.getStudyTime().toString();
 	}
+
+//	@PutMapping("/currentweek")
+//	public Week newStudySession(@RequestBody Week week) {
+//		week.calculateStudyTime(week.getStartSessionTime());
+//		updateWeek(week);
+//		Integer studyTime = week.getStudyTime();
+//		
+//		if(week.setEnded()) {
+//			TimeGoal timeGoal = timeGoalController.getTimeGoal(week);
+//			Float tgDonePercent = timeGoal.calculateDonePercent(week.getStudyTime());
+//			Float stDonePercent = new StudyGoal().calculateDonePercent(
+//				studyGoalController.studyGoalsPerWeek(week)
+//			);
+//			
+//			Integer points = week.calculatePoints(tgDonePercent, stDonePercent);
+//			String feedback = week.generateFeedback(points);
+//			String _feedback = feedback+"\n"+ 
+//					"Meta de Tempo de estudo: "+tgDonePercent+"%\n"+
+//					"Metas concluídas: "+tgDonePercent+"%\n"+
+//					"Pontuação: "+points;
+//			System.out.println((int) week.getStudyTime() + stDonePercent);
+//			return week;
+//		}
+//		return week;
+//	}
+	
+	@PostMapping("/weekbyid")
+	public Optional<Week> weekById(@RequestBody Week week) {
+		return weekService.getWeekById(week.getId());
+	}
+	
+
+	
+	
 	
 }

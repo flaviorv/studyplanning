@@ -21,6 +21,7 @@ public class CourseService {
 	}
 	
 	public Course saveCourse(Course course) {
+		course.setStartDay();
 		course.setLastDay();
 		return courseRepository.save(course);
 	}

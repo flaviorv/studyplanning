@@ -22,8 +22,8 @@ public class WeekService {
 		return weekRepository.save(week);
 	}
 	
-	public Week updateWeek(Week week) {
-		weekRepository.findById(week.getId());
-		return weekRepository.save(week);
+	public Optional<Week>  getWeekById(Integer weekId) {
+		Optional<Week> currentState = weekRepository.findById(weekId);
+		return currentState;
 	}
 }
