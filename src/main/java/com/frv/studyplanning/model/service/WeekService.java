@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import com.frv.studyplanning.model.domain.Week;
+import com.frv.studyplanning.model.repository.StudyGoalRepository;
 import com.frv.studyplanning.model.repository.WeekRepository;
 
 @Service
 public class WeekService {
 	@Autowired
 	private WeekRepository weekRepository;
-	
 	public List<Week> getAllWeeks(Integer subjectId){
 		return weekRepository.getAllWeeks(subjectId);
 	}
@@ -22,8 +22,8 @@ public class WeekService {
 		return weekRepository.save(week);
 	}
 	
-	public Optional<Week>  getWeekById(Integer weekId) {
-		Optional<Week> currentState = weekRepository.findById(weekId);
-		return currentState;
+	public Week  getWeekById(Integer weekId) {
+		Week week = weekRepository.getWeekById(weekId);
+		return week;
 	}
 }

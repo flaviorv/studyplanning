@@ -3,6 +3,10 @@ package com.frv.studyplanning.model.domain;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.Parent;
+import org.springframework.context.annotation.Lazy;
+
 import com.frv.studyplanning.model.auxiliary.Constants;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,13 +30,15 @@ public class Week extends StudyTime {
 	
 	private Boolean ended = false;
 	
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
 	private Subject subject;
 	
-	@OneToMany(cascade = CascadeType.DETACH, orphanRemoval = false)
-	@JoinColumn(name = "week_id")
-	private List<StudyGoal> goals;
+	
+	
+	
 
 	public Week() {}
 	
@@ -127,5 +133,7 @@ public class Week extends StudyTime {
 	public void setSubject(Subject subject) {
 		this.subject = subject;
 	}
+
+	
 
 }

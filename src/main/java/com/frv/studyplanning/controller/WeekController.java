@@ -69,41 +69,15 @@ public class WeekController {
 			String feedback = week.generateFeedback(points);
 			String _feedback = feedback+"\n"+ 
 					"Meta de Tempo de estudo: "+tgDonePercent+"%\n"+
-					"Metas concluídas: "+tgDonePercent+"%\n"+
+					"Metas concluídas: "+stDonePercent+"%\n"+
 					"Pontuação: "+points;
-			System.out.println((int) week.getStudyTime() + stDonePercent);
 			return _feedback;
 		}
 		return week.getStudyTime().toString();
 	}
-
-//	@PutMapping("/currentweek")
-//	public Week newStudySession(@RequestBody Week week) {
-//		week.calculateStudyTime(week.getStartSessionTime());
-//		updateWeek(week);
-//		Integer studyTime = week.getStudyTime();
-//		
-//		if(week.setEnded()) {
-//			TimeGoal timeGoal = timeGoalController.getTimeGoal(week);
-//			Float tgDonePercent = timeGoal.calculateDonePercent(week.getStudyTime());
-//			Float stDonePercent = new StudyGoal().calculateDonePercent(
-//				studyGoalController.studyGoalsPerWeek(week)
-//			);
-//			
-//			Integer points = week.calculatePoints(tgDonePercent, stDonePercent);
-//			String feedback = week.generateFeedback(points);
-//			String _feedback = feedback+"\n"+ 
-//					"Meta de Tempo de estudo: "+tgDonePercent+"%\n"+
-//					"Metas concluídas: "+tgDonePercent+"%\n"+
-//					"Pontuação: "+points;
-//			System.out.println((int) week.getStudyTime() + stDonePercent);
-//			return week;
-//		}
-//		return week;
-//	}
 	
 	@PostMapping("/weekbyid")
-	public Optional<Week> weekById(@RequestBody Week week) {
+	public Week weekById(@RequestBody Week week) {
 		return weekService.getWeekById(week.getId());
 	}
 	

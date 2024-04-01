@@ -16,7 +16,7 @@ import jakarta.persistence.Transient;
 public class TimeGoal extends Goal<Integer>{
 	
 	private Integer timeGoal = 0;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE, orphanRemoval = false)
 	@JoinColumn(name = "week_id")
 	private Week week;
 	
@@ -30,7 +30,7 @@ public class TimeGoal extends Goal<Integer>{
 	public Float calculateDonePercent(Integer studyTime) {
 		Float calculation = (float) studyTime/timeGoal*100;
 		if(calculation > 100) {
-			calculation = (float) 100;
+			calculation =  100f;
 		}
 		return calculation;
 	}

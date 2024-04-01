@@ -11,4 +11,7 @@ public interface WeekRepository extends JpaRepository<Week, Integer>{
 	@Query("from Week w where w.subject.id = :subjectId")
 	List<Week> getAllWeeks(Integer subjectId);
 	
+	@Query("from Week we where we.id = :weekId")
+	Week getWeekById(Integer weekId);
+	
 }
