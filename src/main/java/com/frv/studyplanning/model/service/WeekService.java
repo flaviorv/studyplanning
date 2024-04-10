@@ -14,6 +14,7 @@ import com.frv.studyplanning.model.repository.WeekRepository;
 public class WeekService {
 	@Autowired
 	private WeekRepository weekRepository;
+	
 	public List<Week> getAllWeeks(Integer subjectId){
 		return weekRepository.getAllWeeks(subjectId);
 	}

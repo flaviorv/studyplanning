@@ -1,7 +1,6 @@
 package com.frv.studyplanning.controller;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,22 +57,25 @@ public class WeekController {
 	
 	@PostMapping("/generatefeedback")
 	public String checkended(@RequestBody Week week) {
-		if(week.setEnded()) {
-			TimeGoal timeGoal = timeGoalController.getTimeGoal(week);
-			Float tgDonePercent = timeGoal.calculateDonePercent(week.getStudyTime());
+		Week _week = weekById(week);
+		_week.setEnded();
+		if(_week.isEnded()) {
+			TimeGoal timeGoal = timeGoalController.getTimeGoal(_week);
+			Float tgDonePercent = timeGoal.calculateDonePercent(_week.getStudyTime());
 			Float stDonePercent = new StudyGoal().calculateDonePercent(
-				studyGoalController.studyGoalsPerWeek(week)
+				studyGoalController.studyGoalsPerWeek(_week)
 			);
 			
-			Integer points = week.calculatePoints(tgDonePercent, stDonePercent);
-			String feedback = week.generateFeedback(points);
-			String _feedback = feedback+"\n"+ 
-					"Meta de Tempo de estudo: "+tgDonePercent+"%\n"+
-					"Metas concluídas: "+stDonePercent+"%\n"+
+			Integer points = _week.calculatePoints(tgDonePercent, stDonePercent);
+			String feedback = _week.generateFeedback(points);
+			String _feedback = feedback+","+ 
+					"Meta de Tempo de estudo: "+Math.round(tgDonePercent)+"%,"+
+					"Metas concluídas: "+Math.round(stDonePercent)+"%,"+
 					"Pontuação: "+points;
+			updateWeek(_week);
 			return _feedback;
 		}
-		return week.getStudyTime().toString();
+		return "Semana ainda não terminou.";
 	}
 	
 	@PostMapping("/weekbyid")

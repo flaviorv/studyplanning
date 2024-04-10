@@ -2,19 +2,13 @@ package com.frv.studyplanning.model.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-
-import org.hibernate.annotations.Parent;
-import org.springframework.context.annotation.Lazy;
-
 import com.frv.studyplanning.model.auxiliary.Constants;
-import jakarta.persistence.CascadeType;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -30,16 +24,10 @@ public class Week extends StudyTime {
 	
 	private Boolean ended = false;
 	
-	
-	
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
 	private Subject subject;
 	
-	
-	
-	
-
 	public Week() {}
 	
 	@Override
@@ -51,11 +39,15 @@ public class Week extends StudyTime {
 				;
 		return str;
 	}
-	
 	@Override
-	public Integer calculateStudyTime(Integer startSessionTime) {
-		Integer studySessionTime = getCurrentMinutes() - startSessionTime;
-		super.setStudyTime(studySessionTime + getStudyTime());
+	public Integer calculateStudyTime(Integer startSession) {
+		Integer studySessionTime = getCurrentMinutes() - startSession;
+		setStudyTime(studySessionTime + getStudyTime());
+		return getStudyTime();
+	}
+	
+	public Integer calculateStudyTime() {
+		setStudyTime(getStudyTime() + 1);
 		return getStudyTime();
 	}
 	
@@ -88,15 +80,16 @@ public class Week extends StudyTime {
 	}
 	
 	public Boolean setEnded() {
-		Integer weekTime = super.getCurrentMinutes() - startTime;
+		ended = false;
+		Integer weekTime = getCurrentMinutes() - startTime;
 		if(weekTime >= 10080) {
-			return ended = true;
+			ended = true;
 		}	
-		return ended = false;
+		return ended;
 	}
 	
 	public Boolean isEnded() {
-		return this.ended;
+		return ended;
 	}
 
 	public Integer getStartTime() {

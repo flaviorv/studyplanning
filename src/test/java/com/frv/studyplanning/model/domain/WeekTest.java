@@ -44,46 +44,77 @@ public class WeekTest {
 	 void shold_calculate_points_and_genetate_feedback( ) {
 		 Week wtest = new Week();
 		 StudyGoal sg1 = new StudyGoal("Fazer protótipo de telas da Loja de Ração");
-		 sg1.setDone(true);
 		 StudyGoal sg2 = new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns");
 		 StudyGoal sg3 = new StudyGoal("Implementar database no Studyplanning");
+		 StudyGoal sg4 = new StudyGoal("Entregar AT do Projeto de Bloco");
+		 sg1.setDone(true);
+		 sg2.setDone(true);
+		 sg3.setDone(true);
+		 sg4.setDone(true);
 		 List<StudyGoal> sglist = Arrays.asList(sg1,sg2,sg3);
 		 
 		 Float goalsPercent = new StudyGoal().calculateDonePercent(sglist);
 		 
 		 TimeGoal tgtest = new TimeGoal(3);
-		 wtest.setStudyTime(1);
+		 wtest.setStudyTime(2);
 		
 		 Float timePercent = tgtest.calculateDonePercent(wtest.getStudyTime());
 		 
 		 Integer points = wtest.calculatePoints(timePercent, goalsPercent) ;
 		 String feedback = wtest.generateFeedback(points);
 		 
-		 assertEquals(points, 3);
-		 assertEquals(feedback, Constants.BAD_FEEDBACK);
+		 assertEquals(points, 8);
+		 assertEquals(feedback, Constants.GOOD_FEEDBACK);
 		 
-		 timePercent = (float) 100.0;
-		 goalsPercent = (float) 100.0;
-		 points = wtest.calculatePoints(timePercent, goalsPercent) ;
-		 assertEquals(10, points);
-//		 assertEquals(feedback, Constants.BEST_FEEDBACK);
-		 System.out.println(wtest.toString());
 	 }
 	 
-	@Test
-	void shold_start_a_new_week_and_return_start_day_and_last_day() {
-		Week wtest = new Week();
-		wtest.setStartTime();
-		wtest.setStartDay();
-		wtest.setLastDay();
+	 @Test
+	 void shold_calculate_points_and_genetate_feedback_with_division_by_0( ) {
+		 
+		 Week wtest = new Week();
+		 
+		 List<StudyGoal> sglist = Arrays.asList();
+		 
+		 Float goalsPercent = new StudyGoal().calculateDonePercent(sglist);
+		 
+		 TimeGoal tgtest = new TimeGoal(3);
+		 wtest.setStudyTime(0);
 		
-//		// tape the current date
-//		String startDay = "26/03/2024";
-//		// tape one week after startDay
-//		String lastDay = "02/04/2024";
-//		
-//		assertEquals(wtest.getStartDay(), startDay);
-//		assertEquals(wtest.getLastDay(), lastDay);
-	}
+		 Float timePercent = tgtest.calculateDonePercent(wtest.getStudyTime());
+		 
+		 Integer points = wtest.calculatePoints(timePercent, goalsPercent) ;
+		 String feedback = wtest.generateFeedback(points);
+		 
+		 assertEquals(points, 0);
+		 assertEquals(feedback, Constants.BAD_FEEDBACK);
+		 
+	 }
+	 
+	 @Test
+	 void shold_calculate_points_with_more_than_100_percent_study_time( ) {
+		 
+		 Week wtest = new Week();
+		 StudyGoal sg1 = new StudyGoal("Fazer protótipo de telas da Loja de Ração");
+		 StudyGoal sg2 = new StudyGoal("Ler capítulo 1 e 15 de Applying UML and Patterns");
+		 StudyGoal sg3 = new StudyGoal("Implementar database no Studyplanning");
+		 sg1.setDone(true);
+		 
+		 List<StudyGoal> sglist = Arrays.asList(sg1, sg2, sg3);
+		 
+		 Float goalsPercent = new StudyGoal().calculateDonePercent(sglist);
+		 
+		 TimeGoal tgtest = new TimeGoal(3);
+		 wtest.setStudyTime(8);
+		
+		 Float timePercent = tgtest.calculateDonePercent(wtest.getStudyTime());
+		 
+		 Integer points = wtest.calculatePoints(timePercent, goalsPercent) ;
+		 String feedback = wtest.generateFeedback(points);
+		 
+		 assertEquals(points, 6);
+		 assertEquals(feedback, Constants.BAD_FEEDBACK);
+		 
+	 }
+	 
 	 
 }

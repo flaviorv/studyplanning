@@ -24,14 +24,13 @@ public abstract class StudyTime {
 	public abstract Integer calculateStudyTime(Integer initTime);
 	
 	public Integer millisecondsToMinutes(Long milliseconds) {		
-		Long _seconds = (milliseconds/1000);
-		Integer seconds = _seconds.intValue();
-		Integer minutes = (seconds/60);
-		return minutes;
+		Long minutes = (milliseconds/60000);
+		Integer _minutes = minutes.intValue();
+		return _minutes;
 	}
 
 	public Integer getCurrentMinutes() {
-		return millisecondsToMinutes(new Date().getTime());
+		return millisecondsToMinutes(new Date().getTime() );
 	}
 
 	public String getStartDay() {		
