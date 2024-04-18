@@ -69,7 +69,7 @@ public class WeekController {
 			Integer points = _week.calculatePoints(tgDonePercent, stDonePercent);
 			String feedback = _week.generateFeedback(points);
 			String _feedback = feedback+","+ 
-					"Meta de Tempo de estudo: "+Math.round(tgDonePercent)+"%,"+
+					"Meta de tempo concluída: "+Math.round(tgDonePercent)+"%,"+
 					"Metas concluídas: "+Math.round(stDonePercent)+"%,"+
 					"Pontuação: "+points;
 			updateWeek(_week);
