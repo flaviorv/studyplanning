@@ -1,4 +1,4 @@
-package com.frv.studyplanning.domain.model.domain;
+package com.frv.studyplanning.domain.model;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -10,6 +10,18 @@ public class Subject {
     private LocalTime endTime;
     private boolean done;
     private List<Topic> topics;
+
+    public Subject(String subject, String startTime, String endTime) {
+        LocalTime start = LocalTime.parse(startTime);
+        LocalTime end = LocalTime.parse(endTime);
+
+        this.subject = subject;
+        this.startTime = start;
+        this.endTime = end;
+        this.done = false;
+    }
+
+    public Subject(){}
 
     public boolean isSameTime(LocalTime time1, LocalTime time2, int minTolerance){
         long difference = Math.abs(Duration.between(time1, time2).toMinutes());
