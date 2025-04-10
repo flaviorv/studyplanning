@@ -1,4 +1,4 @@
-package com.frv.studyplanning.model.auxiliary;
+package com.frv.studyplanning.shared.auxiliary;
 
 public class Constants {
 	

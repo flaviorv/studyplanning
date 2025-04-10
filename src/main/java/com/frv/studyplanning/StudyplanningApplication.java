@@ -8,8 +8,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class StudyplanningApplication {
 
 	public static void main(String[] args) {
-		
 		SpringApplication.run(StudyplanningApplication.class, args);
-		System.out.println("Running sucefully");
+		System.out.println("Running successfully");
 	}
 }
