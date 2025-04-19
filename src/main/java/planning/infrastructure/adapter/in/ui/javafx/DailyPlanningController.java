@@ -41,7 +41,18 @@ public class DailyPlanningController {
         Subject s2 = new Subject(
                 "Data Structures", LocalTime.of(16,0), LocalTime.of(18,30)
         );
-        dp.addSubject(s2);
+        try {
+            dp.addSubject(s2);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid field");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+        Subject s3 = new Subject("Data Structures", LocalTime.of(12,0), LocalTime.of(13,30));
+        dp.addSubject(s3);
         useCase.save(dp);
 
         getTodayPlanning();
@@ -79,11 +90,14 @@ public class DailyPlanningController {
         DayOfWeek day = DayOfWeek.valueOf(b.getText());
         Optional<DailyPlanning> dp =  useCase.get(day);
         subjects.setVisible(false);
-        dp.ifPresent(dailyPlanning -> {
-            subjects.setItems(FXCollections.observableList(dailyPlanning.getSubjects()));
+        if (dp.isPresent()) {
+            subjects.setItems(FXCollections.observableList(dp.get().getSubjects()));
             subjects.setVisible(true);
-            planning.setText("Planning for " + day.name() + " : " + (long) dailyPlanning.getSubjects().size() + " subjects");
-        });
+            planning.setText("Planning for " + day.name() + " : " + dp.get().getSubjects().size() + " subjects");
+        } else {
+            subjects.setVisible(false);
+            planning.setText("No planning for " + day.name());
+        }
     }
 
     private void handleTable() {

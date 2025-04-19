@@ -1,7 +1,6 @@
 package planning.domain.model;
 
 import planning.domain.model.exception.EndBeforeStartException;
-import planning.domain.model.exception.NoStartTimeException;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
@@ -14,9 +13,15 @@ public class Subject {
     private List<Topic> topics;
 
     public Subject(String subject, LocalTime startTime, LocalTime endTime) {
+        if (subject.length() < 2) {
+            throw new IllegalArgumentException("Subject must be at least 2 characters long.");
+        }
         this.subject = subject;
-        this.startTime = startTime;
-        this.setEndTime(endTime);
+        this.startTime = startTime;;
+        if (startTime.isAfter(endTime)) {
+            throw new EndBeforeStartException("End time should be after start time.");
+        }
+        this.endTime = endTime;
         this.done = false;
     }
 
@@ -33,9 +38,9 @@ public class Subject {
         return difference <= TOLERANCE;
     }
 
-    public boolean setDone(LocalTime sessionStartTime, LocalTime sessionEndTime) {
+    public boolean checkIsDone(LocalTime sessionStartTime, LocalTime sessionEndTime) {
         if(isSameTime(sessionEndTime, endTime)) {
-            if (sessionStartTime.isBefore(startTime) || isSameTime(sessionStartTime, startTime)) {
+            if (isSameTime(sessionStartTime, startTime)) {
                 return done = true;
             }
         }
@@ -50,38 +55,12 @@ public class Subject {
         return this.startTime;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        if (endTime == null) {
-            throw  new NoStartTimeException("Start time should be set before end time.");
-        }
-        if (startTime.isAfter(endTime)) {
-            throw new EndBeforeStartException("End time should be after start time.");
-        }
-        this.endTime = endTime;
-    }
-
     public boolean isDone() {
         return done;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
-    }
-
     public List<Topic> getTopics() {
         return topics;
-    }
-
-    public void setTopics(List<Topic> topics) {
-        this.topics = topics;
     }
 
     public LocalTime getEndTime(){
