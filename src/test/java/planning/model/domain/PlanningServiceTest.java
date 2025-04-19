@@ -1,14 +1,14 @@
 package planning.model.domain;
 
 import org.junit.jupiter.api.Test;
-import planning.domain.service.PlanningService;
+import planning.infrastructure.adapter.out.fake.DailyPlanningFake;
 
 import java.time.DayOfWeek;
 
 public class PlanningServiceTest {
     @Test
     public void test() {
-        PlanningService planningService = new PlanningService();
+        DailyPlanningFake planningService = new DailyPlanningFake();
         planningService.registerPlanning(DayOfWeek.MONDAY);
         System.out.println();
     }

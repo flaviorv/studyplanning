@@ -1,23 +1,21 @@
-package planning.application.controller;
+package planning.infrastructure.adapter.in.ui.javafx;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import planning.application.dto.SubjectDTO;
 import planning.application.mapper.SubjectMapper;
 import planning.domain.model.DailyPlanning;
 import planning.domain.model.Subject;
-import planning.domain.service.PlanningService;
+import planning.infrastructure.adapter.out.fake.SubjectFake;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
 
 public class AddSubjectController {
-
     @FXML private Label title;
     @FXML private TextField subject;
     @FXML private TextField startHours;
@@ -43,8 +41,8 @@ public class AddSubjectController {
             String endTime = endHours.getText() + ":" + endMinutes.getText();
             SubjectDTO subjectDTO = new SubjectDTO(subject.getText(), startTime, endTime);
             Subject subject = SubjectMapper.toDomain(subjectDTO);
-
-            PlanningService.registerSubject(new DailyPlanning(DayOfWeek.TUESDAY), subject);
+            SubjectFake ssf = new SubjectFake();
+            ssf.registerSubject(new DailyPlanning(DayOfWeek.TUESDAY), subject);
             subjectDTO = SubjectMapper.toDTO(subject);
             title.setText(subjectDTO.getSubject() + "added" + "\nStart: " + subjectDTO.getStartTime() + " End: " + subjectDTO.getEndTime());
         }catch (Exception e) {

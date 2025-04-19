@@ -1,7 +1,6 @@
 package planning.domain.model;
 
 import planning.domain.model.exception.*;
-
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;

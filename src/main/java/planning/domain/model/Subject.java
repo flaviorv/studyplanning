@@ -2,10 +2,8 @@ package planning.domain.model;
 
 import planning.domain.model.exception.EndBeforeStartException;
 import planning.domain.model.exception.NoStartTimeException;
-
 import java.time.Duration;
 import java.time.LocalTime;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Subject {
@@ -23,6 +21,11 @@ public class Subject {
     }
 
     public Subject(){}
+
+    @Override
+    public String toString() {
+        return "Subject: " + subject + "Start time: " + startTime + "End time: " + endTime + "Done: " + done;
+    }
 
     public boolean isSameTime(LocalTime time1, LocalTime time2){
         final int TOLERANCE = 10;
@@ -56,7 +59,7 @@ public class Subject {
     }
 
     public void setEndTime(LocalTime endTime) {
-        if (startTime == null) {
+        if (endTime == null) {
             throw  new NoStartTimeException("Start time should be set before end time.");
         }
         if (startTime.isAfter(endTime)) {

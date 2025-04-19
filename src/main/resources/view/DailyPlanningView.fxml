@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml"
+    fx:controller="planning.infrastructure.adapter.in.ui.javafx.DailyPlanningController">
+
+    <FlowPane fx:id="days" hgap="10" vgap="10" alignment="CENTER" style="-fx-padding: 20 0 0 0"/>
+    <Label fx:id="planning" text="No planning for this day."/>
+    <TableView fx:id="subjects" visible="false">
+        <columns>
+            <TableColumn fx:id="subject" text="SUBJECT" />
+            <TableColumn fx:id="startTime" text="START" />
+            <TableColumn fx:id="endTime" text="END" />
+            <TableColumn fx:id="done" text="IS DONE" />
+        </columns>
+    </TableView>
+
+</VBox>
