@@ -2,6 +2,7 @@ package planning.model.domain;
 
 import planning.domain.model.Subject;
 import planning.domain.model.DailyPlanning;
+import planning.domain.model.exception.IntervalTimeException;
 import planning.domain.model.exception.NoSubjectsException;
 import org.junit.jupiter.api.Test;
 import java.time.DayOfWeek;
@@ -12,8 +13,14 @@ public class DailyPlanningTest {
     @Test
     void addSubjectExceptionTest() {
         DailyPlanning dp = new DailyPlanning(null);
-        Subject s = new Subject();
-
+        Subject s1 = new Subject("Cyber Security", LocalTime.of(16,0), LocalTime.of(18,30));
+        Subject s2 = new Subject("Java", LocalTime.of(16,0), LocalTime.of(17,30));
+        Subject s3 = new Subject("Rust", LocalTime.of(13,10), LocalTime.of(18,30));
+        Subject s4 = new Subject("Clean Code", LocalTime.of(13,0), LocalTime.of(19,30));
+        assertDoesNotThrow(() -> dp.addSubject(s1));
+        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s2));
+        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s3));
+        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s4));
     }
 
     @Test

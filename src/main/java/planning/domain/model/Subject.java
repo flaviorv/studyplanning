@@ -25,8 +25,6 @@ public class Subject {
         this.done = false;
     }
 
-    public Subject(){}
-
     @Override
     public String toString() {
         return "Subject: " + subject + "Start time: " + startTime + "End time: " + endTime + "Done: " + done;
