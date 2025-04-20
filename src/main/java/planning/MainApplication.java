@@ -11,7 +11,6 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
                 "/view/DailyPlanningView.fxml"));
-        System.out.println(loader.getLocation());
         Scene scene = new Scene(loader.load(), 1000, 500);
         stage.setTitle("Study Planning");
         stage.setScene(scene);

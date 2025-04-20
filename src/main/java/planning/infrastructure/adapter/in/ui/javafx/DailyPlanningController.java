@@ -2,6 +2,7 @@ package planning.infrastructure.adapter.in.ui.javafx;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -12,6 +13,8 @@ import planning.domain.model.Subject;
 import planning.domain.ports.in.IDailyPlanningUseCase;
 import planning.domain.ports.out.IDailyPlanningRepository;
 import planning.infrastructure.adapter.out.fake.DailyPlanningFake;
+
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -28,6 +31,8 @@ public class DailyPlanningController {
     @FXML protected TableColumn<Subject, String> startTime;
     @FXML protected TableColumn<Subject, String> endTime;
     @FXML protected TableColumn<Subject, String> done;
+    @FXML protected Button addButton;
+    @FXML protected Button configButton;
 
     @FXML
     protected void initialize() {
@@ -38,19 +43,6 @@ public class DailyPlanningController {
                 "Clean Code", LocalTime.of(16,0), LocalTime.of(18,30)
         );
         dp.addSubject(s1);
-        Subject s2 = new Subject(
-                "Data Structures", LocalTime.of(16,0), LocalTime.of(18,30)
-        );
-        try {
-            dp.addSubject(s2);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid field");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-        }
         Subject s3 = new Subject("Data Structures", LocalTime.of(12,0), LocalTime.of(13,30));
         dp.addSubject(s3);
         useCase.save(dp);
@@ -94,9 +86,17 @@ public class DailyPlanningController {
             subjects.setItems(FXCollections.observableList(dp.get().getSubjects()));
             subjects.setVisible(true);
             planning.setText("Planning for " + day.name() + " : " + dp.get().getSubjects().size() + " subjects");
+            addButton.setVisible(false);
+            addButton.setManaged(false);
+            configButton.setVisible(true);
+            configButton.setManaged(true);
         } else {
             subjects.setVisible(false);
             planning.setText("No planning for " + day.name());
+            addButton.setVisible(true);
+            addButton.setManaged(true);
+            configButton.setVisible(false);
+            configButton.setManaged(false);
         }
     }
 
@@ -113,5 +113,15 @@ public class DailyPlanningController {
 
         subjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+    }
+
+    @FXML
+    public void toAddSubjectView(ActionEvent event) throws IOException {
+        ViewUtils.changeView(event,"AddSubjectView");
+    }
+
+    @FXML
+    public void toPlanningSettingsView(ActionEvent event) throws IOException {
+        ViewUtils.changeView(event,"PlanningSettingsView");
     }
 }
