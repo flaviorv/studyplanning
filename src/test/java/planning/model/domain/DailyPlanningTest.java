@@ -2,7 +2,7 @@ package planning.model.domain;
 
 import planning.domain.model.Subject;
 import planning.domain.model.DailyPlanning;
-import planning.domain.model.exception.IntervalTimeException;
+import planning.domain.model.exception.TimeIntervalException;
 import planning.domain.model.exception.NoSubjectsException;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +18,9 @@ public class DailyPlanningTest {
         Subject s3 = new Subject("Rust", LocalTime.of(13,10), LocalTime.of(18,30));
         Subject s4 = new Subject("Clean Code", LocalTime.of(13,0), LocalTime.of(19,30));
         assertDoesNotThrow(() -> dp.addSubject(s1));
-        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s2));
-        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s3));
-        assertThrowsExactly(IntervalTimeException.class, () -> dp.addSubject(s4));
+        assertThrowsExactly(TimeIntervalException.class, () -> dp.addSubject(s2));
+        assertThrowsExactly(TimeIntervalException.class, () -> dp.addSubject(s3));
+        assertThrowsExactly(TimeIntervalException.class, () -> dp.addSubject(s4));
     }
 
     @Test

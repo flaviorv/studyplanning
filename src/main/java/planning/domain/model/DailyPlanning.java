@@ -30,7 +30,7 @@ public class DailyPlanning {
     public void addSubject(Subject subject) {
         for (Subject s : subjects) {
             if (haveSameInterval(s, subject)) {
-                throw new IntervalTimeException("The interval time reaches other interval time.");
+                throw new TimeIntervalException("This time range has already been defined");
             }
         }
         subjects.add(subject);

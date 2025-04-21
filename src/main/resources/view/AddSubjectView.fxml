@@ -13,7 +13,7 @@
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="50.0"/>
     </padding>
-    <Label fx:id="title" style="-fx-font-family: C059; -fx-font-weight: bolder; -fx-font-size: 2em ">ADD SUBJECT</Label>
+    <Label style="-fx-font-family: C059; -fx-font-weight: bolder; -fx-font-size: 2em ">ADD SUBJECT</Label>
     <TextField fx:id="subject" promptText="Subject" maxWidth="240"/>
     <HBox alignment="CENTER_RIGHT" spacing="10" maxWidth="200">
         <Text style="-fx-font-family: C059; -fx-font-weight: bolder; ">Start time:</Text>
@@ -32,6 +32,6 @@
     </HBox>
     <Text fx:id="endTimeError" visible="false" managed="false" fill="red" layoutX="20"
         style="-fx-font-size: 0.9em; -fx-font-family: 'Verdana'; -fx-margin: 1px; -fx-padding: 1px">Invalid Data</Text>
-
     <Button fx:id="confirmBtn" text="Confirm" onAction="#onAddSubjectBtnClick"/>
+    <Text fx:id="errorText" text="Cannot add subject" style="-fx-fill: red; -fx-font-weight: bold" visible="false" />
 </VBox>

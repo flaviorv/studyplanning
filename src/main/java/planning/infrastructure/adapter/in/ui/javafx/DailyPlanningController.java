@@ -28,6 +28,7 @@ public class DailyPlanningController {
     @FXML protected TableColumn<SubjectDTO, String> endTime;
     @FXML protected TableColumn<SubjectDTO, String> done;
     @FXML protected Button addButton;
+    @FXML protected Button addMoreButton;
     @FXML protected Button configButton;
     private DayOfWeek currentDay;
 
@@ -78,6 +79,8 @@ public class DailyPlanningController {
             planning.setText("Planning for " + currentDay.name() + " : " + dto.get().getSubjects().size() + " subjects");
             addButton.setVisible(false);
             addButton.setManaged(false);
+            addMoreButton.setVisible(true);
+            addMoreButton.setManaged(true);
             configButton.setVisible(true);
             configButton.setManaged(true);
         } else {
@@ -85,6 +88,8 @@ public class DailyPlanningController {
             planning.setText("No planning for " + currentDay.name());
             addButton.setVisible(true);
             addButton.setManaged(true);
+            addMoreButton.setVisible(false);
+            addMoreButton.setManaged(false);
             configButton.setVisible(false);
             configButton.setManaged(false);
         }
