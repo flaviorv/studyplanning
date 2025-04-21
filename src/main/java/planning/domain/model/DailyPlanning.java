@@ -1,6 +1,7 @@
 package planning.domain.model;
 
 import planning.domain.model.exception.*;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -49,6 +50,10 @@ public class DailyPlanning {
         }
         return true;
 
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public List<Subject> getSubjects() {

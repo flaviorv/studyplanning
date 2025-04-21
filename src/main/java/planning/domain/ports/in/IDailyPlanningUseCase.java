@@ -1,15 +1,17 @@
 package planning.domain.ports.in;
 
-import planning.domain.model.DailyPlanning;
+import planning.application.dto.DailyPlanningDTO;
+import planning.application.dto.SubjectDTO;
+
 import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
 public interface IDailyPlanningUseCase {
-    void save(DailyPlanning planning);
-    void edit(DailyPlanning planning);
-    void delete(DailyPlanning planning);
-    Optional<DailyPlanning> get(DayOfWeek day);
-    List<DailyPlanning> getAll();
+    void add(DailyPlanningDTO planning, SubjectDTO subject);
+    void edit(DailyPlanningDTO planning);
+    void delete(DailyPlanningDTO planning);
+    Optional<DailyPlanningDTO> get(DayOfWeek day);
+    List<DailyPlanningDTO> getAll();
     List<DayOfWeek> getDays();
 }

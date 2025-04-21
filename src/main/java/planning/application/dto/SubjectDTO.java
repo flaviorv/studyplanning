@@ -4,6 +4,7 @@ public class SubjectDTO {
     private final String subject;
     private final String startTime;
     private final String endTime;
+    private boolean done;
 
    public SubjectDTO(String subject, String startTime, String endTime) {
        this.subject = subject;
@@ -21,5 +22,9 @@ public class SubjectDTO {
 
     public String getEndTime() {
         return endTime;
+    }
+
+    public boolean isDone() {
+       return done;
     }
 }

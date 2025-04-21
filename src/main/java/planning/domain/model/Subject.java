@@ -27,7 +27,7 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject: " + subject + "Start time: " + startTime + "End time: " + endTime + "Done: " + done;
+        return "Subject: " + subject + " Start time: " + startTime + " End time: " + endTime + " Done: " + done;
     }
 
     public boolean isSameTime(LocalTime time1, LocalTime time2){

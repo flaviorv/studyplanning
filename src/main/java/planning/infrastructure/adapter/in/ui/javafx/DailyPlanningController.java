@@ -7,53 +7,41 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
+import planning.application.dto.DailyPlanningDTO;
+import planning.application.dto.SubjectDTO;
 import planning.application.service.DailyPlanningUseCase;
-import planning.domain.model.DailyPlanning;
-import planning.domain.model.Subject;
+import planning.domain.model.Session;
 import planning.domain.ports.in.IDailyPlanningUseCase;
-import planning.domain.ports.out.IDailyPlanningRepository;
-import planning.infrastructure.adapter.out.fake.DailyPlanningFake;
-
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Optional;
 
 public class DailyPlanningController {
-    private final IDailyPlanningRepository repository = new DailyPlanningFake();
-    private final IDailyPlanningUseCase useCase = new DailyPlanningUseCase(repository);
+    private final IDailyPlanningUseCase useCase = DailyPlanningUseCase.getInstance();
 
     @FXML protected FlowPane days;
     @FXML protected Label planning;
-    @FXML protected TableView<Subject> subjects;
-    @FXML protected TableColumn<Subject, String> subject;
-    @FXML protected TableColumn<Subject, String> startTime;
-    @FXML protected TableColumn<Subject, String> endTime;
-    @FXML protected TableColumn<Subject, String> done;
+    @FXML protected TableView<SubjectDTO> subjects;
+    @FXML protected TableColumn<SubjectDTO, String> subject;
+    @FXML protected TableColumn<SubjectDTO, String> startTime;
+    @FXML protected TableColumn<SubjectDTO, String> endTime;
+    @FXML protected TableColumn<SubjectDTO, String> done;
     @FXML protected Button addButton;
     @FXML protected Button configButton;
+    private DayOfWeek currentDay;
 
     @FXML
     protected void initialize() {
+        currentDay = Session.getDay();
         handleDayButtons();
         handleTable();
-        DailyPlanning dp = new DailyPlanning(DayOfWeek.MONDAY);
-        Subject s1 = new Subject(
-                "Clean Code", LocalTime.of(16,0), LocalTime.of(18,30)
-        );
-        dp.addSubject(s1);
-        Subject s3 = new Subject("Data Structures", LocalTime.of(12,0), LocalTime.of(13,30));
-        dp.addSubject(s3);
-        useCase.save(dp);
-
-        getTodayPlanning();
+        getCurrentPlanning();
     }
 
     private void handleDayButtons() {
         for (DayOfWeek day : DayOfWeek.values()) {
             Button b = new Button(day.name());
-            b.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-cursor: hand;");
             b.setOnAction(event -> {
                 for (Node _b : days.getChildren()) {
                     _b.setDisable(false);
@@ -67,10 +55,13 @@ public class DailyPlanningController {
         }
     }
 
-    private void getTodayPlanning() {
+    private void getCurrentPlanning() {
+        if (currentDay == null) {
+            currentDay = LocalDate.now().getDayOfWeek();
+        }
         for (Node n : days.getChildren()) {
             if (n instanceof Button b) {
-                if (b.getText().equals(LocalDate.now().getDayOfWeek().name())) {
+                if (b.getText().equals(currentDay.name())) {
                     b.fire();
                     break;
                 }
@@ -79,25 +70,25 @@ public class DailyPlanningController {
     }
 
     private void getSubjects(Button b) {
-        DayOfWeek day = DayOfWeek.valueOf(b.getText());
-        Optional<DailyPlanning> dp =  useCase.get(day);
-        subjects.setVisible(false);
-        if (dp.isPresent()) {
-            subjects.setItems(FXCollections.observableList(dp.get().getSubjects()));
+        currentDay = DayOfWeek.valueOf(b.getText());
+        Optional<DailyPlanningDTO> dto =  useCase.get(currentDay);
+        if (dto.isPresent()) {
+            subjects.setItems(FXCollections.observableList(dto.get().getSubjects()));
             subjects.setVisible(true);
-            planning.setText("Planning for " + day.name() + " : " + dp.get().getSubjects().size() + " subjects");
+            planning.setText("Planning for " + currentDay.name() + " : " + dto.get().getSubjects().size() + " subjects");
             addButton.setVisible(false);
             addButton.setManaged(false);
             configButton.setVisible(true);
             configButton.setManaged(true);
         } else {
             subjects.setVisible(false);
-            planning.setText("No planning for " + day.name());
+            planning.setText("No planning for " + currentDay.name());
             addButton.setVisible(true);
             addButton.setManaged(true);
             configButton.setVisible(false);
             configButton.setManaged(false);
         }
+
     }
 
     private void handleTable() {
@@ -112,11 +103,11 @@ public class DailyPlanningController {
         done.setStyle("-fx-alignment: CENTER;");
 
         subjects.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
     }
 
     @FXML
     public void toAddSubjectView(ActionEvent event) throws IOException {
+        Session.setDay(currentDay);
         ViewUtils.changeView(event,"AddSubjectView");
     }
 

@@ -1,21 +1,24 @@
 package planning.infrastructure.adapter.in.ui.javafx;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import planning.application.dto.DailyPlanningDTO;
 import planning.application.dto.SubjectDTO;
-import planning.application.mapper.SubjectMapper;
-import planning.domain.model.DailyPlanning;
-import planning.domain.model.Subject;
-import planning.infrastructure.adapter.out.fake.SubjectFake;
+import planning.application.service.DailyPlanningUseCase;
+import planning.domain.model.Session;
+import planning.domain.ports.in.IDailyPlanningUseCase;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
 
 public class AddSubjectController {
+    IDailyPlanningUseCase useCase = DailyPlanningUseCase.getInstance();
+
     @FXML private Label title;
     @FXML private TextField subject;
     @FXML private TextField startHours;
@@ -35,19 +38,19 @@ public class AddSubjectController {
     }
 
     @FXML
-    protected void onAddSubjectBtnClick() {
+    protected void onAddSubjectBtnClick(ActionEvent event) {
         try {
+            DayOfWeek currentDay = Session.getDay();
+            DailyPlanningDTO dto = new DailyPlanningDTO(currentDay.toString());
             String startTime = startHours.getText() + ":" + startMinutes.getText();
             String endTime = endHours.getText() + ":" + endMinutes.getText();
             SubjectDTO subjectDTO = new SubjectDTO(subject.getText(), startTime, endTime);
-            Subject subject = SubjectMapper.toDomain(subjectDTO);
-            SubjectFake ssf = new SubjectFake();
-            ssf.registerSubject(new DailyPlanning(DayOfWeek.TUESDAY), subject);
-            subjectDTO = SubjectMapper.toDTO(subject);
-            title.setText(subjectDTO.getSubject() + "added" + "\nStart: " + subjectDTO.getStartTime() + " End: " + subjectDTO.getEndTime());
+            dto.getSubjects().add(subjectDTO);
+            useCase.add(dto, subjectDTO);
+            ViewUtils.changeView(event, "DailyPlanningView");
         }catch (Exception e) {
-            System.out.println(e.getMessage());
-            title.setText("Invalid field");
+            e.printStackTrace();
+            title.setText("Cannot add subject");
         }
     }
 
@@ -97,9 +100,6 @@ public class AddSubjectController {
                     throw new IOException("Invalid hours");
                 }
             }
-
-
-
         } catch (IOException e1) {
             error.setText(e1.getMessage());
             hours.setStyle("-fx-text-fill: red");
