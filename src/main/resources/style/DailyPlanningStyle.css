@@ -1,0 +1,18 @@
+.options_button:hover, #addButton:hover {
+    -fx-background-color: lightblue;
+}
+
+.options_button {
+    -fx-background-color: lightgrey;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+    -fx-font-weight: bold;
+    -fx-background-insets: 0;
+}
+
+#addButton {
+    -fx-cursor: hand;
+    -fx-border-radius: 5;
+    -fx-font-weight: bold;
+}

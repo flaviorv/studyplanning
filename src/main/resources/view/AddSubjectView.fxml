@@ -9,29 +9,25 @@
 <?import javafx.scene.text.Text?>
 
 <VBox alignment="TOP_CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="planning.infrastructure.adapter.in.ui.javafx.AddSubjectController">
+      fx:controller="planning.infrastructure.adapter.in.ui.javafx.AddSubjectController" stylesheets="@../style/AddSubjectStyle.css">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="50.0"/>
     </padding>
-    <Label style="-fx-font-family: C059; -fx-font-weight: bolder; -fx-font-size: 2em ">ADD SUBJECT</Label>
+    <Label id="title" >ADD SUBJECT</Label>
     <TextField fx:id="subject" promptText="Subject" maxWidth="240"/>
     <HBox alignment="CENTER_RIGHT" spacing="10" maxWidth="200">
-        <Text style="-fx-font-family: C059; -fx-font-weight: bolder; ">Start time:</Text>
+        <Text styleClass="timeText">Start time:</Text>
         <TextField fx:id="startHours" promptText="HH" prefWidth="40" alignment="CENTER" />
         <Text>:</Text>
         <TextField fx:id="startMinutes" promptText="mm" prefWidth="40" alignment="CENTER" />
     </HBox>
-    <Text fx:id="startTimeError" visible="false" managed="false" fill="red" layoutX="20"
-          style="-fx-font-size: 0.9em; -fx-font-family: 'Verdana'; -fx-margin: 1px; -fx-padding: 1px">Invalid Data</Text>
 
     <HBox alignment="CENTER_RIGHT" spacing="10" maxWidth="200">
-        <Text style="-fx-font-family: C059; -fx-font-weight: bolder; ">End time:</Text>
+        <Text styleClass="timeText">End time:</Text>
         <TextField fx:id="endHours" promptText="HH" prefWidth="40" alignment="CENTER"/>
         <Text>:</Text>
         <TextField fx:id="endMinutes" promptText="mm" prefWidth="40" alignment="CENTER"/>
     </HBox>
-    <Text fx:id="endTimeError" visible="false" managed="false" fill="red" layoutX="20"
-        style="-fx-font-size: 0.9em; -fx-font-family: 'Verdana'; -fx-margin: 1px; -fx-padding: 1px">Invalid Data</Text>
     <Button fx:id="confirmBtn" text="Confirm" onAction="#onAddSubjectBtnClick"/>
-    <Text fx:id="errorText" text="Cannot add subject" style="-fx-fill: red; -fx-font-weight: bold" visible="false" />
+    <Text fx:id="errorText" text="Cannot add subject" visible="false" />
 </VBox>

@@ -23,8 +23,6 @@ public class AddSubjectController {
     @FXML private TextField endHours;
     @FXML private TextField endMinutes;
     @FXML private Button confirmBtn;
-    @FXML public Text startTimeError;
-    @FXML public Text endTimeError;
     @FXML public Text errorText;
 
     @FXML
